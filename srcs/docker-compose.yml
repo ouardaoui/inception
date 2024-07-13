@@ -1,8 +1,5 @@
 version: "3.8"
 
-networks:
-    network:
-        driver: bridge
 
 volumes :
   mariadb :
@@ -17,7 +14,6 @@ volumes :
       device: /tmp/dali3/wp
       type: none
       o: bind
-
 
 
 services:
@@ -53,3 +49,8 @@ services:
       - network
     depends_on:
       - mariadb
+
+networks:
+    network:
+        driver: bridge
+

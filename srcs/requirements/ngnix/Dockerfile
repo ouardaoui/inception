@@ -8,9 +8,9 @@ RUN apt install openssl nginx -y
 
 WORKDIR /etc/nginx/certs
 
-COPY ./tools/script.sh /
+COPY ./tools/script.sh .
 
-RUN chmod +x script
+RUN chmod +x script.sh
 
-CMD [ "/script.sh" ]
+CMD [ "./script.sh" ]
 

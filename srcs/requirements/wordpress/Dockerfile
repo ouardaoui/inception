@@ -18,8 +18,8 @@ RUN mv wp-cli.phar /usr/local/bin/wp
 COPY tools/setup.sh .
 EXPOSE 9000
 
-RUN chmod +x setup.sh
+RUN chmod +x script.sh
 
-CMD ["./setup.sh"]
+CMD ["./script.sh"]
 
 

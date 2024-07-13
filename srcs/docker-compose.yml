@@ -1,0 +1,55 @@
+version: "3.8"
+
+networks:
+    inc-network:
+        driver: bridge
+
+volumes :
+  db :
+    driver: local
+    driver_opts:
+      device: /tmp/dali3/db
+      type: none
+      o: bind
+  wp :
+    driver: local
+    driver_opts:
+      device: /tmp/dali3/wp
+      type: none
+      o: bind
+
+
+
+services:
+  mariadb:
+    build : ./requirements/mariadb
+    volumes :
+      - db:/var/lib/mysql
+    env_file:
+      ./.env
+    networks:
+      - inc-network
+
+  nginx:
+    build: ./requirements/ngnix
+    networks:
+      - inc-network
+    ports:
+      - "443:443"
+    restart : always
+    volumes : 
+      - wp:/var/www/html
+    depends_on:
+      - wordpress
+
+  wordpress :
+    build : ./requirements/wordpress
+    env_file:
+      ./.env
+    restart : always
+    volumes : 
+      - wp:/var/www/html/
+    networks:
+      - inc-network
+    depends_on:
+      - mariadb
